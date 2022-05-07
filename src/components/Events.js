@@ -1,9 +1,13 @@
-import React from "react"
+import { SpinnerCircular } from "spinners-react";
 import BreadCrumbs from "../components/BreadCrumbs";
 import EventsList from "../components/EventsList";
 
-export default function Events() {
-  return (
+export default function Events({ events, title = "", loading }) {
+  return loading ? (
+    <div className="flex items-center justify-center h-screen">
+      <SpinnerCircular size={100} />
+    </div>
+  ) : (
     <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none bg-gray-100 h-screen">
       <div className="py-6">
         <BreadCrumbs />
@@ -13,14 +17,14 @@ export default function Events() {
               Event Management
             </h1>
             <p data-testid="page-subtitle" className="text-md font-medium text-gray-500">
-              Manage all Eventeco events
+              Manage all {title} Eventeco events
             </p>
           </div>
         </div>
         <div className="max-w-7xl mt-10 mx-auto px-4 sm:px-6 md:px-8">
-          <EventsList />
+          <EventsList events={events} />
         </div>
       </div>
     </main>
-  )
+  );
 }

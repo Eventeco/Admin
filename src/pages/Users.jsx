@@ -1,11 +1,8 @@
-import React from "react"
-import StatCard from "../components/StatCard";
-import { UserGroupIcon, CalendarIcon } from "@heroicons/react/solid";
+import React from "react";
 import BreadCrumbs from "../components/BreadCrumbs";
 import UsersList from "../components/UsersList";
 
 export default function Users() {
-  console.log('in users');
   return (
     <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none bg-gray-100 h-screen">
       <div className="py-6">
@@ -25,5 +22,5 @@ export default function Users() {
         </div>
       </div>
     </main>
-  )
+  );
 }

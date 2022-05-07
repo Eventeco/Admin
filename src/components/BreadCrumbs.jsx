@@ -1,25 +1,26 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { ChevronRightIcon, HomeIcon } from '@heroicons/react/solid'
-import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { ChevronRightIcon, HomeIcon } from "@heroicons/react/solid";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { DASHBOARD } from "../constants/routes";
 
 export default function BreadCrumbs() {
-  const location = useLocation()
-  const [crumbs, setCrumbs] = useState([])
+  const location = useLocation();
+  const [crumbs, setCrumbs] = useState([]);
   useEffect(() => {
     if (location) {
-      const [, ...linkPath] = location.pathname.split("/")
+      const [, ...linkPath] = location.pathname.split("/");
       const crumbs = linkPath.map((path, i) => {
-        const href = "/" + linkPath.slice(0, i + 1).join("/")
+        const href = "/" + linkPath.slice(0, i + 1).join("/");
         return {
           name: path,
           href,
           current: href === location.pathname,
-        }
-      })
-      setCrumbs(crumbs)
+        };
+      });
+      setCrumbs(crumbs);
     }
-  }, [location])
+  }, [location]);
 
   return (
     <nav
@@ -29,7 +30,7 @@ export default function BreadCrumbs() {
       <ol className="flex items-center space-x-4">
         <li>
           <div>
-            <Link to="/" className="text-gray-400 hover:text-gray-500">
+            <Link to={DASHBOARD} className="text-gray-400 hover:text-gray-500">
               <HomeIcon className="flex-shrink-0 h-5 w-5" aria-hidden="true" />
               <span className="sr-only">Home</span>
             </Link>
@@ -54,5 +55,5 @@ export default function BreadCrumbs() {
         ))}
       </ol>
     </nav>
-  )
+  );
 }

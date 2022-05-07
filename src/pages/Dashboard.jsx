@@ -1,10 +1,28 @@
-import React from "react"
+import React, { useEffect, useState } from "react";
 import StatCard from "../components/StatCard";
 import { UserGroupIcon, CalendarIcon } from "@heroicons/react/solid";
 import BreadCrumbs from "../components/BreadCrumbs";
+import instance from "../axios";
+import * as ROUTES from "../constants/routes";
 
 export default function Dashboard() {
-  console.log('in dashboard');
+  const [usersCount, setUsersCount] = useState(0);
+  const [eventsCount, setEventsCount] = useState(0);
+  const [upcomingEventsCount, setUpcomingEventsCount] = useState(0);
+  const [pastEventsCount, setPastEventsCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    instance.get("/admin/allCounts").then((res) => {
+      setUsersCount(res.data.data.userscount);
+      setEventsCount(res.data.data.eventscount);
+      setUpcomingEventsCount(res.data.data.upcomingeventscount);
+      setPastEventsCount(res.data.data.pasteventscount);
+      setLoading(false);
+    });
+  }, []);
+
   return (
     <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none bg-gray-100 h-screen">
       <div className="py-6">
@@ -14,33 +32,37 @@ export default function Dashboard() {
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
           <div className="mt-5 grid grid-cols-3 gap-5 sm:grid-cols-2 lg:grid-cols-3 grid-rows-3">
-            <StatCard 
+            <StatCard
               title="Total Users"
-              statistic={4}
-              icon={<UserGroupIcon/>}
-              href={"/users"}
+              statistic={usersCount}
+              icon={<UserGroupIcon />}
+              href={ROUTES.USERS}
+              loading={loading}
             />
-            <StatCard 
+            <StatCard
               title="Total Events"
-              statistic={23}
-              icon={<CalendarIcon/>}
-              href={"/events"}
+              statistic={eventsCount}
+              icon={<CalendarIcon />}
+              href={ROUTES.ALL_EVENTS}
+              loading={loading}
             />
-            <StatCard 
+            <StatCard
               title="Upcoming Events"
-              statistic={6}
-              icon={<CalendarIcon/>}
-              href={"/events"}
+              statistic={upcomingEventsCount}
+              icon={<CalendarIcon />}
+              href={ROUTES.UPCOMING_EVENTS}
+              loading={loading}
             />
-            <StatCard 
+            <StatCard
               title="Completed Events"
-              statistic={17}
-              icon={<CalendarIcon/>}
-              href={"/events"}
+              statistic={pastEventsCount}
+              icon={<CalendarIcon />}
+              href={ROUTES.COMPLETED_EVENTS}
+              loading={loading}
             />
           </div>
         </div>
       </div>
     </main>
-  )
+  );
 }
