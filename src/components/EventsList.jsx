@@ -18,7 +18,7 @@ export default function EventsList({ events }) {
               src={`${BACKEND_BASE_URL}/s3/getImage/${event.picturepath}`}
               alt={`${event.name}`}
             />
-            <h3 className="mt-6 text-gray-900 text-lg font-medium">{event.user.username}</h3>
+            <h3 className="mt-6 text-gray-900 text-lg font-medium">{event.name}</h3>
             <dl className="mt-1 flex-grow flex flex-col justify-between">
               <dt className="sr-only">Title</dt>
               <dd className="text-gray-500 text-md">{event.title}</dd>
@@ -35,7 +35,7 @@ export default function EventsList({ events }) {
             <div className="-mt-px bg-green-400 flex divide-x divide-gray-200">
               <div className="w-0 flex-1 flex">
                 <Link
-                  to={{ pathname: `events/${event.id}`, state: { event: event } }}
+                  to={{ pathname: `/events/${event.id}`, state: { event: event } }}
                   className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-ld font-bold text-white border border-transparent rounded-bl-lg hover:text-gray-500"
                 >
                   <PencilIcon className="w-5 h-5 text-white" aria-hidden="true" />
