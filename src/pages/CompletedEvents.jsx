@@ -7,7 +7,7 @@ export default function PastEvents() {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
-    instance.get("events/completed").then((res) => {
+    instance.get("events?status=completed").then((res) => {
       setEvents(res.data.data);
       setLoading(false);
     });

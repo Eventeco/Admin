@@ -8,7 +8,7 @@ export default function PastEvents() {
 
   useEffect(() => {
     setLoading(true);
-    instance.get("events/upcoming").then((res) => {
+    instance.get("events?status=upcoming").then((res) => {
       setEvents(res.data.data);
       setLoading(false);
     });
